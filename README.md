@@ -4,7 +4,7 @@
 Our final goal is to improve the score of Symbolic PathFinder(SPF) in SV-COMP(Software Verification Competition). There are two main reasons why SPF is losing many scores: unconfirmed false verdicts and incorrect results. In this project, we extend SPF to generate a violation witness for all unsafe properties. This support, in turn, improves SPF’s score as these unsafe properties can be confirmed with the generated witness. During the journey of GSoC, I investigated witness tools supported by SV-COMP that check the violation witness. We supported the generation of witnesses in the standardized GraphML form. Using this standard format allows our witnesses to be checked by any witness checker that supports this format. I wrote a code to generate violation witnesses in SPF and ran all the benchmarks at SV-COMP to measure the performance of SPF. Finally, I removed about 80% of unconfirmed false, which is expected to improve SPF’s score from 182 to 360+. 
 
 
-## Introduction
+## 1. Introduction
 This section provides a motivation of this project, a brief introduction of witness of the source code, witness validation tools and GraphML format.The picture below shows the result of SPF at last year’s SV-COMP.
 
 <br/><img width="1280" alt="Figure 1" src="https://github.com/user-attachments/assets/fe8735b4-4993-4144-a947-7ee0e00a6d35">
@@ -48,5 +48,70 @@ Figure 3 : An example benchmark program that assertion error could be occurred.
 <br/><br/>First, the key “originfile” denotes the filename of the source code, which is “Main.java”. The key “startline” shows the line number of the variable i in the program. The key “threadId” denotes the thread id that executes the program. The key “assumption” represents the value of the variable at corresponding line number at “startline” key. Finally, the key “assumption.scope” denotes the information of which class and method includes the variable. In this case, variable i is in the Main class of the program, and the main( ) method has variable i, thus assumption scope is written as below. Note that there are an essential keys to construct violation witness. For example, the key “threadId” could be deleted if program does not use multithreading. However, the four keys, “originfile”, “startline”, “assumption”, “assumption.scope” must be specified in violation witness. If one of these things is missing, witness validator tools output error.
 
 
+```html
+<node id="n0">
+             <data key="entry">true</data>
+       </node>
+
+       <node id="n1">
+             <data key="violation">true</data>
+       </node>
+       <edge source="n0" target="n1">
+         <data key="originfile">Main.java</data>
+         <data key="startline">21</data>
+         <data key="assumption">int0 == 1000</data>
+         <data key="assumption.scope">java::LMain;</data>
+       </edge>
+```
+
+Figure 4 : Node and edge part of the violation witness of Figure 3
 
 
+<br/>There are 2 tools used in SV-COMP to validate violation witnesses, which are wit4java and gwit. Both two tools works similarly, take Java program and violation witness as input, executes the program with matching assumption in violation witness to nondeterministic variable, judge whether violation witness is correct or not. These tools also output “could not validate witness” if it can’t decide whether the violation witness is valid or not. For instance, if you have two nondeterministic variable and you only specify a information of just one nondeterministic variable, witness validator will output “could not validate witness”.
+
+
+## 2. Implementation Process
+Here I’ll give a brief introduction of SPF’s structure and detailed description of how to construct violation witness while SPF is running. Section 2 is divided into five subsections, 2.1 will be a brief introduction to SPF, 2.2 ~ 2.4 will be an introduction to components of violation witness, which are header, edge and node, respectively. 2.5 is an example of SPF’s witness generation and validating this on wit4java.
+
+### 2.1 Symbolic PathFinder
+
+
+SPF is an extension of Java PathFinder that symbolically executes Java bytecode. Like JPF, SPF requires as input : 1. class file, 2. configuration file specifying which methods in the program should be executed symbolically, 3. properties to verify. SPF relies on JPF to systematically explore the different symbolic execution paths.
+
+
+<br/>In this project, we will focus on SymbolicListener and PathCondition. SymbolicListener listens the bytecode of the input program, and PathCondition contains the information of current state. For example, consider an input program that has conditional statement over two integer variables x and y, like if (x > y). Then consider we are in the state that x is larger than y(i.e. x > y). The PathCondition is (x > y) in current state. If SPF detects violation in the program, SPF outputs PathCondition that causes violation. For instance, if you run the program at Figure 3 on SPF, SPF will output a path condition that shows an integer variable equals 1000, such as “int0[1000] == CONST_1000”.
+<br/><br/>
+
+### 2.2 Header
+
+
+The header of the violation witness consists of declarations of key attributes that will be used to represent the violation witness. For example, if you want to use the “startline” key attribute, you have to declare it at the top of the witness file like Figure 2. To construct the header of the witness, I made a template for witness generation composed of definitions of necessary keys, such as “assumption” or “startline”. When SPF generates the violation witness, the SymbolicListener reads the template and writes the contents of the template to the violation witness.  
+<br/>
+
+### 2.3 Edge
+
+
+As I mentioned at the latter part of the section 1, the required keys to construct a violation witness are “originfile”, “startline”, “assumption” and “assumption.scope”. To obtain these information, I used internal methods of SymbolicListener. 
+
+<br/>For “originfile” and “assumption.scope”, these two information could be simply obtained by invoking methods that related to filename of program and class name, then just parse them out. Before we talk about how to get “startline” and “assumption”, I’ll give you some notable information about SV-COMP. In SV-COMP’s benchmarks, they use `Verifier.nondet~~()` method to use nondeterministic variable. For example, like figure 3, they use `Verifier.nondetInt()` to put a nondeterminisitic value on an integer variable. It means that to get the value of “startline”, we should focus on invocation of `Verifier.nondet~~()`. When the invocation of certain method occurs during execution of SPF, SymbolicListener can get the line number of method by invoking getLineNumber( ). Furthermore, we can also get variable name when SPF generates symbolic value. I created a list that contains the value of these 4 keys and saved the data here. 
+<br/><br/>
+
+### 2.4 Node
+
+
+The techniques that I talked above is the way to construct the edge part of the violation witness. Then how about the node part? It’s pretty simple. Since SV-COMP only uses `Verifier.nondet~~()` method to put nondeterministic value, we just count the number of invocation of `Verifier.nondet~~()`, and that will be the number of the node. For example, if there is a program that has two invocation of `Verifier.nondetInt()` and one invocation of `Verifier.nondetChar()`, the number of nodes of violation witness will be three.
+<br/><br/>
+
+### 2.5 Example
+
+
+For example, let’s say we run program at Figure 3 on SPF. Then SPF will generate a corresponding violation witness, named “witness.graphml”. To run this on wit4java, you need to specify a path to the violation witness, a classpath that is used in the program and a path to the program. In this case, it would be a path to class Verifier and the program. Figure 5 shows a command that wit4java validates the generated witness.
+
+<img width="1280" alt="Figure 5" src="https://github.com/user-attachments/assets/68cc69cb-049c-4cce-8c48-4cff1627e570">
+
+Figure 5 : Validate generated witness by wit4java. Witness file path is specified with `--witness`, classpath and path to the program are specified with `--local-dir`.
+
+
+## 3. Contribution
+
+In this section, I’ll introduce my contribution to my organization and witness validator tools. 
