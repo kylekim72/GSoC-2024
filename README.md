@@ -72,6 +72,7 @@ Figure 4 : Node and edge part of the violation witness of Figure 3
 
 ## 2. Implementation Process
 Here I’ll give a brief introduction of SPF’s structure and detailed description of how to construct violation witness while SPF is running. Section 2 is divided into five subsections, 2.1 will be a brief introduction to SPF, 2.2 ~ 2.4 will be an introduction to components of violation witness, which are header, edge and node, respectively. 2.5 is an example of SPF’s witness generation and validating this on wit4java.
+<br/><br/>
 
 ### 2.1 Symbolic PathFinder
 
