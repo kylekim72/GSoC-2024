@@ -17,7 +17,7 @@ Figure 1 : Statistics of SPF in last year’s SV-COMP
 
 <br/><br/>In SV-COMP, violation witness is written in GraphML file format. There are three parts that construct violation witness. First, there is a node part that represents the node of the violation witness. Second, there is an edge part. The edge part contains significant information that could be a evidence of violation, such as a value of certain nondeterministic variable. Finally, there is a header part that declares some attributes that we want to use in violation witness. For example, if you want to specify thread id in your edge, you have to declare at the top of the GraphML file like this : 
 
-```
+```html
 <key attr.name="threadId" attr.type="int" for="edge" id="threadId">
     <default>0</default>
   </key>
@@ -40,5 +40,13 @@ class Main {
   }
 }
 ```
+
+Figure 3 : An example benchmark program that assertion error could be occurred.
+
+
+<br/>It depends on the value of nondeterministic variable i. If i is greater than 1000, it would pass the assertion statement “i > 1000”. However, if i is 1000, it passes the condition in if statement and it will occur assertion error. The violation witness of the program above looks like below : In node n0, it specifies that node n0 is the start state of the violation witness with key “entry”. In n1, it says that node n1 is the state that contains error with the key “violation”. In edge from n0 to n1, there are 5 keys that show the information of the program above. 
+<br/><br/>First, the key “originfile” denotes the filename of the source code, which is “Main.java”. The key “startline” shows the line number of the variable i in the program. The key “threadId” denotes the thread id that executes the program. The key “assumption” represents the value of the variable at corresponding line number at “startline” key. Finally, the key “assumption.scope” denotes the information of which class and method includes the variable. In this case, variable i is in the Main class of the program, and the main( ) method has variable i, thus assumption scope is written as below. Note that there are an essential keys to construct violation witness. For example, the key “threadId” could be deleted if program does not use multithreading. However, the four keys, “originfile”, “startline”, “assumption”, “assumption.scope” must be specified in violation witness. If one of these things is missing, witness validator tools output error.
+
+
 
 
