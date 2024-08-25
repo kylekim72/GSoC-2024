@@ -1,2 +1,4 @@
-# GSoC-2024
-GSoC 2024 Final Submission
+# Support the generation of violation witness in Symbolic PathFinder
+
+## Abstract
+Our final goal is to improve the score of Symbolic PathFinder(SPF) in SV-COMP(Software Verification Competition). There are two main reasons why SPF is losing many scores: unconfirmed false verdicts and incorrect results. In this project, we extend SPF to generate a violation witness for all unsafe properties. This support, in turn, improves SPF’s score as these unsafe properties can be confirmed with the generated witness. During the journey of GSoC, I investigated witness tools supported by SV-COMP that check the violation witness. We supported the generation of witnesses in the standardized GraphML form. Using this standard format allows our witnesses to be checked by any witness checker that supports this format. I wrote a code to generate violation witnesses in SPF and ran all the benchmarks at SV-COMP to measure the performance of SPF. Finally, I removed about 80% of unconfirmed false, which is expected to improve SPF’s score from 182 to 360+. 
