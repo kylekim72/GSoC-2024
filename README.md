@@ -16,3 +16,29 @@ Figure 1 : Statistics of SPF in last year’s SV-COMP
 
 
 <br/><br/>In SV-COMP, violation witness is written in GraphML file format. There are three parts that construct violation witness. First, there is a node part that represents the node of the violation witness. Second, there is an edge part. The edge part contains significant information that could be a evidence of violation, such as a value of certain nondeterministic variable. Finally, there is a header part that declares some attributes that we want to use in violation witness. For example, if you want to specify thread id in your edge, you have to declare at the top of the GraphML file like this : 
+
+```
+<key attr.name="threadId" attr.type="int" for="edge" id="threadId">
+    <default>0</default>
+  </key>
+```
+
+Figure 2 : Example of key attribute in GraphML file
+
+<br/>Declaration of attributes is similar to import statement on Java or #include statement in C. For instance, if you want to use printf( ) function in your C source code, you should write “#include <stdio.h>” in your source file.
+Here is an example that will improve your understanding of violation witness. Let's assume we want to verify if an assertion error could occur when we run the program below.
+
+```Java
+import org.sosy_lab.sv_benchmarks.Verifier;
+
+class Main {
+  public static void main(String[] args) {
+    int i = Verifier.nondetInt();
+
+    if (i >= 1000) assert i > 1000 : "i is greater 1000"; // should fail
+
+  }
+}
+```
+
+
