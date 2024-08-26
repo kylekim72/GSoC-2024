@@ -125,6 +125,11 @@ I added the code that generates violation witness in SPF. Check the pull request
 Note : This code will not be merged in the deadline(It needs more cleanup). Due to this issue, I’m writing here the latest commit number before the deadline. The last commit number is [376c2cd](https://github.com/SymbolicPathFinder/jpf-symbc/pull/104/commits/376c2cd72dcd6400b081e8526e38a97859295719).
 <br/><br/>
 
+Some major commits : 
+[#1](https://github.com/SymbolicPathFinder/jpf-symbc/pull/104/commits/276cc5ef3ee753f335ab922b5c84f7550e4c53c8) and [#2](https://github.com/SymbolicPathFinder/jpf-symbc/pull/104/commits/276cc5ef3ee753f335ab922b5c84f7550e4c53c8) : Added a package that contains an objects required to create violation witness.
+
+[#3](https://github.com/SymbolicPathFinder/jpf-symbc/pull/104/commits/7cd55babf3a65c8da27b1715aa6d30cea30328c5] : Added a quick guide how to run SPF to generate witness and how to validate it.
+
 ### 3.2 Evaluating Witness Generation
 
 I ran all the benchmarks on SPF to measure the performance of SPF. With my witness generation, SPF we fixed 80% of unconfirmed false, which is expected to improve SPF’s score from 182 to 360+. Here is the sheet that I’ve made. Column A denotes the name of the benchmark, Column B denotes the expected verdict of benchmark, which is a ground-truth result. Column C shows the answer of SPF, Column D shows the answer of wit4java, which is one of the violation witness validator. Lastly, Column E represents the score that SPF get by running benchmark at Column A. If you want to filter out the score that I made, set Column B to false, Column C to UNSAFE, and Column D to true. Here is the link : [https://docs.google.com/spreadsheets/d/1m1NGG_h7Q-W1QdvSUO_LcNUoV5S1HvTOrzDdRLsssW4/edit?usp=sharing](https://docs.google.com/spreadsheets/d/1m1NGG_h7Q-W1QdvSUO_LcNUoV5S1HvTOrzDdRLsssW4/edit?usp=sharing)
