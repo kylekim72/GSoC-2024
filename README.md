@@ -197,3 +197,11 @@ As I wrap up my four-month journey with GSoC, I feel that I have grown significa
 ## References
 
 [Wit4Java: A violation-witness validator for Java verifiers (competition contribution)](https://doi.org/10.1007/978-3-030-99527-0_36) by Wu, T., Schrammel, P., & Cordeiro, L. C. International Conference on Tools and Algorithms for the Construction and Analysis of Systems. Springer, Cham, 2022. Springer doi.org/10.1007/978-3-030-99527-0_36
+
+[Combining unit-level symbolic execution and system-level concrete execution for testing nasa software](https://dl.acm.org/doi/10.1145/1390630.1390635) by C. S. Pasareanu, P. C. Mehlitz, D. H. Bushnell, K. Gundy-Burlet, M. Lowry, S. Person, M. Pape
+
+[Symbolic PathFinder: Integrating symbolic execution with model checking for Java bytecode analysis](https://link.springer.com/article/10.1007/s10515-013-0122-2) by Corina S. Păsăreanu, Willem Visser, David Bushnell, Jaco Geldenhuys, Peter Mehlitz & Neha Rungta 
+
+Software Verification Competition : [https://sv-comp.sosy-lab.org/](https://sv-comp.sosy-lab.org/)
+
+JPF wiki : [https://github.com/javapathfinder/jpf-core/wiki](https://github.com/javapathfinder/jpf-core/wiki)
