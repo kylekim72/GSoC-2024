@@ -193,3 +193,7 @@ In this section, I’ll describe things that can be improved beyond this project
 
 As I wrap up my four-month journey with GSoC, I feel that I have grown significantly compared to before. This may be because it was my first time participating in an open-source project. Over these four months, I learned how to communicate effectively, how to express my opinions better, and how to engage in my work with passion and a proactive attitude. I am deeply grateful for the dedication shown by my mentors throughout this time. I want to express special thanks to Soha and Elena. It was such a great opportunity to work on a project with such amazing mentors. Through GSoC, I discovered the charm of open-source projects, and I plan to continue contributing even after GSoC. I would also like to thank Google for providing this wonderful opportunity.
 
+
+## References
+
+[Wit4Java: A violation-witness validator for Java verifiers (competition contribution)](https://doi.org/10.1007/978-3-030-99527-0_36) by Wu, T., Schrammel, P., & Cordeiro, L. C. International Conference on Tools and Algorithms for the Construction and Analysis of Systems. Springer, Cham, 2022. Springer doi.org/10.1007/978-3-030-99527-0_36
