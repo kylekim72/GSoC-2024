@@ -116,3 +116,49 @@ Figure 5 : Validate generated witness by wit4java. Witness file path is specifie
 ## 3. Contribution
 
 In this section, I’ll introduce my contribution to my organization and witness validator tools. 
+
+
+### 3.1 Supporting Witness Generation
+
+
+I added the code that generates violation witness in SPF. Check the pull request that I made : https://github.com/SymbolicPathFinder/jpf-symbc/pull/104
+Note : This code will not be merged in the deadline(It needs more cleanup). Due to this issue, I’m writing here the latest commit number before the deadline. The last commit number is 1e91da8.
+<br/><br/>
+
+### 3.2 Evaluating Witness Generation
+
+I ran all the benchmarks on SPF to measure the performance of SPF. With my witness generation, SPF we fixed 80% of unconfirmed false, which is expected to improve SPF’s score from 182 to 360+. Here is the sheet that I’ve made. Column A denotes the name of the benchmark, Column B denotes the expected verdict of benchmark, which is a ground-truth result. Column C shows the answer of SPF, Column D shows the answer of wit4java, which is one of the violation witness validator. Lastly, Column E represents the score that SPF get by running benchmark at Column A. If you want to filter out the score that I made, set Column B to false, Column C to UNSAFE, and Column D to true. Here is the link : [https://docs.google.com/spreadsheets/d/1m1NGG_h7Q-W1QdvSUO_LcNUoV5S1HvTOrzDdRLsssW4/edit?usp=sharing][https://docs.google.com/spreadsheets/d/1m1NGG_h7Q-W1QdvSUO_LcNUoV5S1HvTOrzDdRLsssW4/edit?usp=sharing]
+<br/><br/>
+
+### 3.3 Other Contributions
+
+
+During the project, there is an issue when I’m writing a code for witness generation. The tool wit4java has different regular expression for parsing the value of assumption(you can see specific code at here : https://github.com/wit4java/wit4java/blob/main/wit4java%2Fprocessors.py#L113, and the full issue that I made is here : https://github.com/wit4java/wit4java/issues/25).
+<br/>
+
+This is not a problem when the type of assumption value is numeric type such as int or double. For string type, there is a difference. For other tools except GDart, assumption is represented by using equality operator, such as s = “Hello” . However, for GDart, they use the .equals( ) method to represent string value, for example s.equals(“Hello”). For flexibility of our witness generation, we decided to use .equals( ) method to express string value in assumption when we allow method invocation in violation witness since gwit, which is another violation witness validator, doesn’t allow the equality operator to represent the string value. To achieve this, I added an issue on wit4java’s repository to include the producer name “SPF” at the if statement where GDart is located. Here is the link of the issue : LINK-TO-THE-ISSUE
+<br/>
+
+
+In addition, I found a buggy behavior on wit4java, thus I created an issue on their repository. When wit4java handles string value with equality operator, the space character at the right-hand side causes a problem. For example, let’s assume there is an violation witness that contains string value that represented in assumption such as s=”Hello”, and wit4java accepts this. When I denote the assumption as s = “Hello”, wit4java outputs “could not validate witness”. This is pretty weird, so I made an issue to report this. Here is the link : LINK-TO-THE-ISSUE
+<br/>
+
+
+## 4. Challenges
+
+1. It was my first time seeing a violation witness. To understand the format of the witness, I explored the official GraphML document and other witness tools that participated at SV-COMP to improve my understanding of witness.
+<br/>
+
+2. Furthermore, understanding how wit4java works is also a challenging part. This project not only required learning how to use wit4java but also demanded a deep understanding of how wit4java operates. One of the challenging parts was figuring out how the tool parses violation witness files and how it verifies witnesses. To overcome this, I communicated with the wit4java maintainer through GitHub issues, ran the tool multiple times, and even analyzed the wit4java code directly.
+<br/>
+
+3. Since SPF was also a tool I used for the first time, understanding its architecture was another challenging aspect. SPF consists of many components, but the most important one for this project was the SymbolicListener. To grasp the structure of SymbolicListener, I read the code, debugged, and ran various examples to deepen my understanding of it. Additionally, I analyzed the bytecode of programs in the benchmark to determine how to capture the necessary information for the witness through SymbolicListener, and then I implemented this.
+<br/>
+
+4. Since English is not my first language, there were times when I couldn't fully convey what I wanted to say. Although it was a bit challenging to fully understand the meeting discussions at first, I gradually overcame this by attending multiple meetings. This was possible largely thanks to the consideration and support of my mentors, who were very understanding.
+<br/>
+
+5. This was my first time participating in such a large project, so at first, I was a bit nervous, flustered, and somewhat hesitant in my approach. However, thanks to the encouragement from my mentors, I kept evolving throughout the project, and now I feel like I've become someone who communicates actively.
+
+
+
