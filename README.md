@@ -128,7 +128,7 @@ Note : This code will not be merged in the deadline(It needs more cleanup). Due 
 Some major commits : 
 [#1](https://github.com/SymbolicPathFinder/jpf-symbc/pull/104/commits/276cc5ef3ee753f335ab922b5c84f7550e4c53c8) and [#2](https://github.com/SymbolicPathFinder/jpf-symbc/pull/104/commits/276cc5ef3ee753f335ab922b5c84f7550e4c53c8) : Added a package that contains an objects required to create violation witness.
 
-[#3](https://github.com/SymbolicPathFinder/jpf-symbc/pull/104/commits/7cd55babf3a65c8da27b1715aa6d30cea30328c5] : Added a quick guide how to run SPF to generate witness and how to validate it.
+[#3](https://github.com/SymbolicPathFinder/jpf-symbc/pull/104/commits/7cd55babf3a65c8da27b1715aa6d30cea30328c5) : Added a quick guide how to run SPF to generate witness and how to validate it.
 
 ### 3.2 Evaluating Witness Generation
 
