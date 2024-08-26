@@ -146,6 +146,9 @@ In addition, I found a buggy behavior on wit4java, thus I created an issue on th
 
 ## 4. Challenges
 
+In this section, I’ll introduce some challenges that I’ve encountered during the project. 
+<br/>
+
 1. It was my first time seeing a violation witness. To understand the format of the witness, I explored the official GraphML document and other witness tools that participated at SV-COMP to improve my understanding of witness.
 <br/>
 
@@ -159,6 +162,28 @@ In addition, I found a buggy behavior on wit4java, thus I created an issue on th
 <br/>
 
 5. This was my first time participating in such a large project, so at first, I was a bit nervous, flustered, and somewhat hesitant in my approach. However, thanks to the encouragement from my mentors, I kept evolving throughout the project, and now I feel like I've become someone who communicates actively.
+<br/>
 
 
+## 5. Future work
+
+
+In this section, I’ll describe things that can be improved beyond this project.
+<br/>
+
+1. If you go to the sheet that I made at 3.2, the benchmark at securibench directory has no obtained score by witness generation. The benchmarks at securibench are related to string, and currently, SPF is unsound for string analysis. Due to unsoundness of string analysis, SPF outputs wrong PathCondition for benchmarks in securibench, resulting in losing points on SV-COMP. Support generation of correct violation witness related to string types would be a good improvement on witness generation, potentially leading to obtaining more missing scores.
+<br/>
+
+2. This project aims to support the generation of violation witness. Beyond this, support the generation of validation witness, which is a witness to guarantee that the program is safe, would be another big progress.
+<br/>
+
+3. To gain more missing scores in SV-COMP, eliminating incorrect results is also a significant task. In figure 1, you can see -128 points that penalized due to incorrect results, which is too important to ignore.
+<br/>
+
+
+
+## 6. Acknowledgement
+
+
+As I wrap up my four-month journey with GSoC, I feel that I have grown significantly compared to before. This may be because it was my first time participating in an open-source project. Over these four months, I learned how to communicate effectively, how to express my opinions better, and how to engage in my work with passion and a proactive attitude. I am deeply grateful for the dedication shown by my mentors throughout this time. I want to express special thanks to Soha and Elena. It was such a great opportunity to work on a project with such amazing mentors. Through GSoC, I discovered the charm of open-source projects, and I plan to continue contributing even after GSoC. I would also like to thank Google for providing this wonderful opportunity.
 
