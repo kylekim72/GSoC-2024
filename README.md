@@ -122,12 +122,12 @@ In this section, I’ll introduce my contribution to my organization and witness
 
 
 I added the code that generates violation witness in SPF. Check the pull request that I made : https://github.com/SymbolicPathFinder/jpf-symbc/pull/104
-Note : This code will not be merged in the deadline(It needs more cleanup). Due to this issue, I’m writing here the latest commit number before the deadline. The last commit number is [376c2cd][https://github.com/SymbolicPathFinder/jpf-symbc/pull/104/commits/376c2cd72dcd6400b081e8526e38a97859295719].
+Note : This code will not be merged in the deadline(It needs more cleanup). Due to this issue, I’m writing here the latest commit number before the deadline. The last commit number is [376c2cd](https://github.com/SymbolicPathFinder/jpf-symbc/pull/104/commits/376c2cd72dcd6400b081e8526e38a97859295719).
 <br/><br/>
 
 ### 3.2 Evaluating Witness Generation
 
-I ran all the benchmarks on SPF to measure the performance of SPF. With my witness generation, SPF we fixed 80% of unconfirmed false, which is expected to improve SPF’s score from 182 to 360+. Here is the sheet that I’ve made. Column A denotes the name of the benchmark, Column B denotes the expected verdict of benchmark, which is a ground-truth result. Column C shows the answer of SPF, Column D shows the answer of wit4java, which is one of the violation witness validator. Lastly, Column E represents the score that SPF get by running benchmark at Column A. If you want to filter out the score that I made, set Column B to false, Column C to UNSAFE, and Column D to true. Here is the link : [https://docs.google.com/spreadsheets/d/1m1NGG_h7Q-W1QdvSUO_LcNUoV5S1HvTOrzDdRLsssW4/edit?usp=sharing][https://docs.google.com/spreadsheets/d/1m1NGG_h7Q-W1QdvSUO_LcNUoV5S1HvTOrzDdRLsssW4/edit?usp=sharing]
+I ran all the benchmarks on SPF to measure the performance of SPF. With my witness generation, SPF we fixed 80% of unconfirmed false, which is expected to improve SPF’s score from 182 to 360+. Here is the sheet that I’ve made. Column A denotes the name of the benchmark, Column B denotes the expected verdict of benchmark, which is a ground-truth result. Column C shows the answer of SPF, Column D shows the answer of wit4java, which is one of the violation witness validator. Lastly, Column E represents the score that SPF get by running benchmark at Column A. If you want to filter out the score that I made, set Column B to false, Column C to UNSAFE, and Column D to true. Here is the link : [https://docs.google.com/spreadsheets/d/1m1NGG_h7Q-W1QdvSUO_LcNUoV5S1HvTOrzDdRLsssW4/edit?usp=sharing](https://docs.google.com/spreadsheets/d/1m1NGG_h7Q-W1QdvSUO_LcNUoV5S1HvTOrzDdRLsssW4/edit?usp=sharing)
 <br/><br/>
 
 ### 3.3 Other Contributions
